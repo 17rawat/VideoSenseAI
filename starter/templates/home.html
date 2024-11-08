@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<main class="container mx-auto my-16 px-4 flex-grow">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1
+      class="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+    >
+      Understand Your Videos Better
+    </h1>
+    <p class="text-xl text-gray-600 mb-12">
+      Upload any video or paste a URL to instantly analyze language, sentiment,
+      and key insights using advanced AI technology.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div
+        class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">🎯</div>
+        <h3 class="text-xl font-semibold mb-2">Language Detection</h3>
+        <p class="text-gray-600">
+          Automatically identify the languages spoken in your videos
+        </p>
+      </div>
+
+      <div
+        class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">💡</div>
+        <h3 class="text-xl font-semibold mb-2">Sentiment Analysis</h3>
+        <p class="text-gray-600">
+          Understand the emotional tone and sentiment of the content
+        </p>
+      </div>
+
+      <div
+        class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">📊</div>
+        <h3 class="text-xl font-semibold mb-2">Instant Results</h3>
+        <p class="text-gray-600">Get detailed analysis reports in seconds</p>
+      </div>
+    </div>
+
+    <a
+      href="{% url 'login' %}"
+      class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl py-4 px-8 rounded-lg hover:opacity-90 transition duration-300 transform hover:scale-105"
+    >
+      Get Started Now
+    </a>
+  </div>
+</main>
+{% endblock %}

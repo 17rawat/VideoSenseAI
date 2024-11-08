@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}VideoSense AI{% endblock %}</title>
+    {% load tailwind_tags %} {% tailwind_css %}
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 to-black"
+  >
+    {% block header %}
+    <header class="border-b border-gray-800/50 backdrop-blur-sm bg-black/20">
+      <div class="container mx-auto px-4 py-4">
+        <!-- Main navbar -->
+        <nav class="flex justify-between items-center">
+          <!-- Logo section -->
+          <div class="flex items-center space-x-2">
+            <a href="{% url 'home' %}" class="flex items-center">
+              <svg
+                class="w-8 h-8 text-purple-400"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                ></path>
+              </svg>
+              <span
+                class="ml-2 text-2xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 text-transparent bg-clip-text"
+              >
+                VideoSense AI
+              </span>
+            </a>
+          </div>
+
+          <!-- Auth section -->
+          <div class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
+            <div class="flex items-center">
+              <div class="mr-4">
+                <span class="text-gray-400 text-lg">Welcome</span>
+                <span
+                  class="text-lg font-medium bg-gradient-to-r from-purple-400 to-indigo-400 text-transparent bg-clip-text"
+                  >{{ user.username }}</span
+                >
+              </div>
+              <a
+                href="{% url 'logout' %}"
+                class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02]"
+              >
+                Sign Out
+              </a>
+            </div>
+            {% else %}
+            <a
+              href="{% url 'login' %}"
+              class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-2 rounded-lg transition-all duration-200 shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02]"
+            >
+              Sign In
+            </a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+    </header>
+    {% endblock %} {% block content %}{% endblock %} {% block footer %}
+    <footer
+      class="mt-auto py-6 text-center text-gray-400 text-sm backdrop-blur-sm bg-black/20 border-t border-gray-800/50"
+    >
+      © {% now "Y" %} VideoSense AI. All rights reserved.
+    </footer>
+    {% endblock %}
+  </body>
+</html>
