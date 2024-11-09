@@ -22,7 +22,7 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("account/", include("account.urls")),
-    path("analyze/", include("video_analyzer.urls")),
+    path("dashboard/", include("video_analyzer.urls")),
     path("", views.home, name="home"),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

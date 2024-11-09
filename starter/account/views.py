@@ -12,7 +12,7 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect("/analyze")
+            return redirect("video_analyzer:dashboard")
 
         else:
             error_message = "Invaild username or password"
@@ -46,7 +46,7 @@ def user_signup(request):
                 user = User.objects.create_user(username, email, password)
                 user.save()
                 login(request, user)
-                return redirect("/analyze")
+                return redirect("video_analyzer:dashboard")
 
             except:  # noqa: E722
                 error_message = "Error while creating account"

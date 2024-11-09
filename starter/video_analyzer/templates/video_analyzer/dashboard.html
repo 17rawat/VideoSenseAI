@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block content %}
+
+<main class="flex-grow container mx-auto px-4 py-12">
+  <div class="max-w-2xl mx-auto">
+    <!-- Main Card -->
+    <div
+      class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-200 relative overflow-hidden"
+    >
+      <div
+        class="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
+
+      <form
+        action="{% url 'video_analyzer:analysis' %}"
+        method="POST"
+        class="space-y-6 relative"
+      >
+        {% csrf_token %}
+        <div class="relative group">
+          <input
+            type="url"
+            name="video_url"
+            id="video_url"
+            placeholder="https://www.youtube.com/watch?v=..."
+            class="w-full px-4 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm hover:shadow-md"
+            required
+          />
+          <div
+            class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          ></div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg hover:shadow-blue-500/25"
+        >
+          <div class="flex items-center justify-center space-x-3">
+            <svg
+              class="w-6 h-6 animate-pulse"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span class="text-lg">Analyze</span>
+          </div>
+        </button>
+      </form>
+    </div>
+
+    <!-- Description -->
+    <div class="mt-8 text-center space-y-2">
+      <p class="text-gray-600 text-sm">
+        ✨ Unlock insights from your YouTube videos with our AI-powered analysis
+      </p>
+      <p class="text-gray-400 text-xs">
+        Simply paste your YouTube URL above and watch the magic happen
+      </p>
+    </div>
+  </div>
+</main>
+{% endblock %}
