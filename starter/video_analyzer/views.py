@@ -38,13 +38,13 @@ def process_youtube_url(url):
 
 
 @csrf_exempt
+@login_required(login_url="/account/login")
 def analysis(request):
     if request.method == "POST":
-        video_url = request.POST.get("video_url")
-        audio_file_path = None
-
         try:
-            audio_file_path, video_title = process_youtube_url(video_url)
+            audio_file_path, video_title = process_youtube_url(
+                request.POST.get("video_url")
+            )
 
             transcriber = aai.Transcriber()
             transcript = transcriber.transcribe(
@@ -54,33 +54,42 @@ def analysis(request):
                 ),
             )
 
-            if audio_file_path and os.path.exists(audio_file_path):
-                os.remove(audio_file_path)
+            # Clean up audio file after transcription
+            os.remove(audio_file_path)
 
             sentiment_counts = {"POSITIVE": 0, "NEGATIVE": 0, "NEUTRAL": 0}
-
-            # print(transcript.sentiment_analysis)
-
             for sentiment in transcript.sentiment_analysis:
-                # print("text", sentiment.text)
-                # print("sentiment", sentiment.sentiment)
-                # print("confidence", sentiment.confidence)
                 sentiment_counts[sentiment.sentiment] += 1
 
-            # print(sentiment_counts)
+            return render(
+                request,
+                "video_analyzer/analysis.html",
+                {
+                    "video_title": video_title,
+                    "transcript": transcript.text,
+                    "sentiment_counts": sentiment_counts,
+                    "success": True,
+                },
+            )
 
+        except yt_dlp.utils.DownloadError:
             context = {
-                "video_title": video_title,
-                "transcript": transcript.text,
-                "sentiment_counts": sentiment_counts,
-                "success": True,
+                "error": "We couldn't access this video. Please make sure the URL is correct and the video is publicly available.",
+                "success": False,
             }
-
+        except aai.error.APIError:
+            context = {
+                "error": "We're having trouble analyzing this video right now. Please try again in a few minutes.",
+                "success": False,
+            }
         except Exception as error:
-            print(f"Error occurred: {str(error)}")
-            # Ensure file is deleted even if transcription fails
-            if audio_file_path and os.path.exists(audio_file_path):
+            print(f"Internal error occurred: {str(error)}")
+            context = {
+                "error": "Something went wrong while processing your video. Please try again or use a different video.",
+                "success": False,
+            }
+        finally:
+            if "audio_file_path" in locals() and os.path.exists(audio_file_path):
                 os.remove(audio_file_path)
-            context = {"error": str(error), "success": False}
 
     return render(request, "video_analyzer/analysis.html", context)
