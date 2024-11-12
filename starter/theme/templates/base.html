@@ -44,7 +44,7 @@
                 >
               </div>
               <a
-                href="{% url 'logout' %}"
+                href="{% url 'account:logout' %}"
                 class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02]"
               >
                 Sign Out
@@ -52,7 +52,7 @@
             </div>
             {% else %}
             <a
-              href="{% url 'login' %}"
+              href="{% url 'account:login' %}"
               class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-2 rounded-lg transition-all duration-200 shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02]"
             >
               Sign In

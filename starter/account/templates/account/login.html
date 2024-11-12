@@ -60,9 +60,17 @@
         <p class="text-gray-400">
           Don't have an account?
           <a
-            href="{% url 'signup' %}"
+            href="{% url 'account:signup' %}"
             class="text-purple-400 hover:text-purple-300 transition-colors"
             >Sign up</a
+          >
+        </p>
+        <p class="text-gray-400">
+          <a
+            href="{% url 'account:forgot_password' %}"
+            class="text-purple-400 hover:text-purple-300 transition-colors"
+          >
+            Forgot your password?</a
           >
         </p>
       </div>
