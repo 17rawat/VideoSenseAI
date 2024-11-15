@@ -50,7 +50,11 @@ def analysis(request):
             transcript = transcriber.transcribe(
                 audio_file_path,
                 config=aai.TranscriptionConfig(
-                    language_detection=True, sentiment_analysis=True
+                    language_detection=True,
+                    sentiment_analysis=True,
+                    summarization=True,
+                    summary_model=aai.SummarizationModel.informative,
+                    summary_type=aai.SummarizationType.bullets,
                 ),
             )
 
@@ -66,7 +70,7 @@ def analysis(request):
                 "video_analyzer/analysis.html",
                 {
                     "video_title": video_title,
-                    "transcript": transcript.text,
+                    "summary": transcript.summary,
                     "sentiment_counts": sentiment_counts,
                     "success": True,
                 },
